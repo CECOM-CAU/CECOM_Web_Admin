@@ -22,6 +22,11 @@ const config: Config = {
           lightgray100: '#D9D9D9FF',
         }
       },
+      fontFamily: {
+        'gmarket-b': ['GmarketSansBold'],
+        'gmarket-m': ['GmarketSansMedium'],
+        'gmarket-l': ['GmarketSansLight'],
+      },
     },
   },
   plugins: [],
