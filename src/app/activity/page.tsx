@@ -1,8 +1,9 @@
-const ActivityPage=()=>{
+const ActivityPage = () => {
     return (
         <div>
-            <h1>Recruit</h1>
+            <h1>Activity</h1>
         </div>
-    )
-
+    );
 }
+
+export default ActivityPage;
