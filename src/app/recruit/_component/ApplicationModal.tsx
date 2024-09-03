@@ -6,11 +6,11 @@ interface Props {
 }
 
 const ApplicationModal = ({setOpen}: Props) => {
-    const name = '김상윤';
+    const name = '김세콤';
     const depart = '소프트웨어';
     const college = '창의ICT공과대학';
-    const student_id = '20200641';
-    const phone = '01086537020';
+    const student_id = '20200000';
+    const phone = '01000000000';
     const year = '2020';
     const grade = '1학년 (1,2차 학기)'
 
