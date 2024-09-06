@@ -2,17 +2,28 @@ import Item from "@/app/recruit/_component/Item";
 import LongItem from "@/app/recruit/_component/LongItem";
 
 interface Props {
-    setOpen: () => void;
+    setOpen: (state: boolean) => void;
+    index: number;
+    setIndex: (idx: number) => void;
 }
 
-const ApplicationModal = ({setOpen}: Props) => {
-    const name = '김세콤';
-    const depart = '소프트웨어';
-    const college = '창의ICT공과대학';
-    const student_id = '20200000';
-    const phone = '01000000000';
-    const year = '2020';
-    const grade = '1학년 (1,2차 학기)'
+const ApplicationModal = ({setOpen, index, setIndex}: Props) => {
+    const list=[{name : '김상윤',
+        depart : '소프트웨어',
+        college : '창의ICT공과대학',
+        student_id : '20200641',
+        phone : '01086537020',
+        year: '2020',
+        grade : '1학년 (1,2차 학기)'
+    },{name : '나상윤',
+        depart : '전기전자',
+        college : '자연과학대학',
+        student_id : '20200641',
+        phone : '01086537020',
+        year: '2020',
+        grade : '1학년 (1,2차 학기)'
+    }]
+
 
     return (
         <div className='flex fixed bg-[#d9d9d990] w-full h-full justify-center z-50'>
@@ -20,13 +31,13 @@ const ApplicationModal = ({setOpen}: Props) => {
                 className='flex flex-col items-center w-full md:my-[50px] md:mx-[50px] lg:w-[800px] text-[20px] py-[20px] my-[10px] mx-[10px] bg-[#ffffff] rounded-[10px] overflow-scroll'>
 
                 <div className='flex flex-row justify-between md:w-[700px] px-[30px] mb-[20px]'>
-                    <button className=''>이전</button>
+                    <button className='' onClick={() => setIndex(index - 1)}>이전</button>
                     <div className='flex flex-row '>
-                    <div className='mr-[10px] md:text-[30px] text-[25px] font-gmarket-m'>{1} {name} -</div>
+                        <div className='mr-[10px] md:text-[30px] text-[25px] font-gmarket-m'>{index} {name} -</div>
 
-                    <div className='ml-[5px] md:text-[30px] text-[25px] font-gmarket-m'>[{depart}]</div>
+                        <div className='ml-[5px] md:text-[30px] text-[25px] font-gmarket-m'>[{depart}]</div>
                     </div>
-                        <button>다음</button>
+                    <button onClick={() => setIndex(index + 1)}>다음</button>
                 </div>
 
                 <div className='flex flex-col items-start w-full px-[20px] md:px-[50px]'>
@@ -42,7 +53,9 @@ const ApplicationModal = ({setOpen}: Props) => {
 
                 </div>
 
-                <button className='border-2 rounded-[10px] px-[20px] py-[10px] my-[20px]' onClick={() => setOpen(false)}>닫기</button>
+                <button className='border-2 rounded-[10px] px-[20px] py-[10px] my-[20px]'
+                        onClick={() => setOpen(false)}>닫기
+                </button>
             </div>
 
         </div>
