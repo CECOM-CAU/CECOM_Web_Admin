@@ -20,3 +20,9 @@ const initFirebase = () => {
         firestoreDB = getFirestore(firebaseApp);
     }
 }
+
+export const tryLogin = (username: String, password: String): Boolean => {
+    initFirebase();
+    
+    return false;
+}
