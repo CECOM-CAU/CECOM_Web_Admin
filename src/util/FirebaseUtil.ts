@@ -22,14 +22,14 @@ const initFirebase = () => {
     }
 }
 
-export const tryLogin = async (username: String, password: String): Promise<LoginResult> => {
+export const tryLogin = async (requestData: LoginUser): Promise<LoginResult> => {
     initFirebase();
 
     const loginDoc = await getDoc(doc(firestoreDB!, "Login", "admin"));
     const userList: Array<LoginUser> = loginDoc.get("user");
     userList.forEach((userItem) => {
-        if(username === userItem.username){
-            if(password === userItem.password){
+        if(requestData.username === userItem.username){
+            if(requestData.password === userItem.password){
                 return LoginResult.LOGIN_OK;
             }else{
                 return LoginResult.LOGIN_FAIL_PASSWORD;
