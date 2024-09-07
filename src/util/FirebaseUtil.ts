@@ -27,7 +27,7 @@ export const tryLogin = async (requestData: LoginUser): Promise<LoginResult> => 
 
     const loginDoc = await getDoc(doc(firestoreDB!, "Login", "admin"));
     const userList: Array<LoginUser> = loginDoc.get("user");
-    userList.forEach((userItem) => {
+    for(const userItem of userList){
         if(requestData.username === userItem.username){
             if(requestData.password === userItem.password){
                 return LoginResult.LOGIN_OK;
@@ -35,7 +35,7 @@ export const tryLogin = async (requestData: LoginUser): Promise<LoginResult> => 
                 return LoginResult.LOGIN_FAIL_PASSWORD;
             }
         }
-    });
+    }
 
     return LoginResult.LOGIN_FAIL_NO_ACCOUNT;
 }

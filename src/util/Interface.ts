@@ -9,8 +9,8 @@ export interface LoginUser {
     username: string
 }
 
-export enum LoginResult {
-    LOGIN_OK,
-    LOGIN_FAIL_NO_ACCOUNT,
-    LOGIN_FAIL_PASSWORD,
+export const enum LoginResult {
+    LOGIN_OK = "OK",
+    LOGIN_FAIL_NO_ACCOUNT = "FAIL_NO_ACCOUNT",
+    LOGIN_FAIL_PASSWORD = "FAIL_PASSWORD",
 }
