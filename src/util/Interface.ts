@@ -15,6 +15,11 @@ export const enum LoginResult {
     LOGIN_FAIL_PASSWORD = "FAIL_PASSWORD",
 }
 
+export interface RecruitAvailability {
+    isAvail: boolean
+    message: string
+}
+
 export interface RecruitQuestionList {
     count: number
     list: Array<string>
