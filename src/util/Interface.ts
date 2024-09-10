@@ -1,7 +1,7 @@
 export interface API_RESULT {
     RESULT_CODE: number
     RESULT_MSG: string
-    RESULT_DATA: LoginResult | RecruitSubmissionDetail | RecruitSubmissionList | undefined
+    RESULT_DATA: LoginResult | RecruitAvailability | RecruitQuestionList | RecruitSubmissionDetail | RecruitSubmissionList | undefined
 }
 
 export interface LoginUser {
@@ -13,6 +13,16 @@ export const enum LoginResult {
     LOGIN_OK = "OK",
     LOGIN_FAIL_NO_ACCOUNT = "FAIL_NO_ACCOUNT",
     LOGIN_FAIL_PASSWORD = "FAIL_PASSWORD",
+}
+
+export interface RecruitAvailability {
+    isAvail: boolean
+    message: string
+}
+
+export interface RecruitQuestionList {
+    count: number
+    list: Array<string>
 }
 
 export interface RecruitSubmissionDetail {
