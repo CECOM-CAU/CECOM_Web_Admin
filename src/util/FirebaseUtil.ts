@@ -1,8 +1,14 @@
 import {FirebaseApp, initializeApp} from "@firebase/app";
-import {doc, getDoc, getFirestore} from "@firebase/firestore";
+import {collection, doc, getDoc, getDocs, getFirestore} from "@firebase/firestore";
 import {Firestore} from "firebase/firestore";
 import dotenv from "dotenv";
-import {LoginResult, LoginUser} from "@/util/Interface";
+import {
+    LoginResult,
+    LoginUser,
+    RecruitSubmissionDetail,
+    RecruitSubmissionItem,
+    RecruitSubmissionList
+} from "@/util/Interface";
 
 let firebaseApp: FirebaseApp | null = null;
 let firestoreDB: Firestore | null = null;
@@ -38,4 +44,89 @@ export const checkLogin = async (requestData: LoginUser): Promise<LoginResult> =
     }
 
     return LoginResult.LOGIN_FAIL_NO_ACCOUNT;
+}
+
+export const getRecruitSubmissionDetail = async (studentID: string) => {
+    initFirebase();
+
+    const submissionDetail: RecruitSubmissionDetail = {
+        age: "",
+        answer: [],
+        college: "",
+        department: "",
+        grade: "",
+        id: "",
+        isPrivacyCollectAgree: false,
+        name: "",
+        phone: "",
+        timestamp: 0
+    }
+
+    const recruitSubmissionDocs = await getDocs(collection(firestoreDB!, "Recruit"));
+    if(recruitSubmissionDocs.empty){
+        return submissionDetail;
+    }
+
+    for(const recruitSubmissionDoc of recruitSubmissionDocs.docs){
+        if(recruitSubmissionDoc.get("id") == studentID){
+            submissionDetail.age = recruitSubmissionDoc.get("age");
+            submissionDetail.answer = recruitSubmissionDoc.get("answer");
+            submissionDetail.college = recruitSubmissionDoc.get("college");
+            submissionDetail.department = recruitSubmissionDoc.get("department");
+            submissionDetail.grade = recruitSubmissionDoc.get("grade");
+            submissionDetail.id = recruitSubmissionDoc.get("id");
+            submissionDetail.isPrivacyCollectAgree = recruitSubmissionDoc.get("isPrivacyCollectAgree");
+            submissionDetail.name = recruitSubmissionDoc.get("name");
+            submissionDetail.phone = recruitSubmissionDoc.get("phone");
+            submissionDetail.timestamp = Number.parseInt(recruitSubmissionDoc.id);
+
+            break;
+        }
+    }
+
+    return submissionDetail;
+}
+
+export const getRecruitSubmissionList = async () => {
+    initFirebase();
+
+    const submissionList: RecruitSubmissionList = {
+        count: 0,
+        data: []
+    }
+
+    const recruitSubmissionDocs = await getDocs(collection(firestoreDB!, "Recruit"));
+    if(recruitSubmissionDocs.empty){
+        return submissionList;
+    }
+
+    for(const recruitSubmissionDoc of recruitSubmissionDocs.docs){
+        const submissionItem: RecruitSubmissionItem = {
+            age: recruitSubmissionDoc.get("age"),
+            answer: recruitSubmissionDoc.get("answer"),
+            college: recruitSubmissionDoc.get("college"),
+            department: recruitSubmissionDoc.get("department"),
+            grade: recruitSubmissionDoc.get("grade"),
+            id: recruitSubmissionDoc.get("id"),
+            isPrivacyCollectAgree: recruitSubmissionDoc.get("isPrivacyCollectAgree"),
+            name: recruitSubmissionDoc.get("name"),
+            phone: recruitSubmissionDoc.get("phone"),
+            timestamp: Number.parseInt(recruitSubmissionDoc.id)
+        }
+
+        if(submissionItem.age !== undefined
+            && submissionItem.answer !== undefined
+            && submissionItem.college !== undefined
+            && submissionItem.department !== undefined
+            && submissionItem.grade !== undefined
+            && submissionItem.id !== undefined
+            && submissionItem.name !== undefined
+            && submissionItem.phone !== undefined
+            && submissionItem.timestamp !== undefined){
+            submissionList.count++;
+            submissionList.data.push(submissionItem);
+        }
+    }
+
+    return submissionList;
 }
