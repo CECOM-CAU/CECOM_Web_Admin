@@ -11,16 +11,17 @@ const login = () => {
     const [message, setMessage] = useState<string>('');
     const loginHandler = () => {
         const user: LoginUser = {password: password, username: username};
-        axios.post('/api/login/tryLogin', JSON.stringify(user), {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+
+        axios.post('/api/login/tryLogin', user)
             .then(async (r) => {
-                await window.sessionStorage.setItem("username", username);
-                await window.sessionStorage.setItem("password", password);
-                window.location.replace(`/`);
-                console.log(r);
+                if(r.data.RESULT_CODE === 200){
+                    await window.sessionStorage.setItem("username", username);
+                    await window.sessionStorage.setItem("password", password);
+                    window.location.replace(`/`);
+                }
+                else{
+                    setMessage(r.data.RESULT_MSG);
+                }
             })
             .catch((err) => {
                 setMessage(err.value);
@@ -35,7 +36,8 @@ const login = () => {
                        placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
                 <input className='my-[5px] border-[1px] border-black rounded-[5px] px-[2px] py-[2px]' type="password"
                        placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
-                {message ? <div className='text-[#d1180b]'>message</div> : <></>}
+
+                {message ? <div className='text-[#d1180b]'>{message}</div> : <></>}
                 <button className='my-[10px]' onClick={() => loginHandler()} type="button" >Login</button>
             </form>
         </div>

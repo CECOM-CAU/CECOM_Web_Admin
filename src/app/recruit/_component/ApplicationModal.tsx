@@ -23,6 +23,7 @@ const ApplicationModal = ({modalHandler, setOpen, index, setIndex, modalRef,list
                 }
             )
     }, []);
+
     return (
         <div className='flex fixed bg-[#d9d9d930] w-full h-full justify-center z-50' ref={modalRef}
              onClick={(e) => modalHandler(e)}>

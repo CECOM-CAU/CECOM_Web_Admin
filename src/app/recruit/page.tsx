@@ -6,24 +6,6 @@ import {RecruitSubmissionItem, RecruitSubmissionList} from "@/util/Interface";
 
 const RecruitPage = () => {
     const header = ['번호', '이름', '학과', '학년',  '학번'];
-    const data = [{
-        name: '김상윤',
-        department: '전자전기',
-        age: '2005',
-        id: '20201234',
-        college: '소프트웨어대학',
-        grade: '1,2차 학기 ',
-        phone: '01000000000'
-    },
-        {
-            name: '유용민',
-            department: '소프트웨어',
-            age: '2001',
-            id: '20191234',
-            college: '소프트웨어대학',
-            grade: '3,4차 학기 ',
-            phone: '01000000000'
-        }]
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>(1);
     const modalRef = useRef<HTMLDivElement>(null);
