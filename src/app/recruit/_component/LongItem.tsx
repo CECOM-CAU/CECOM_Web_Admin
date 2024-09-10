@@ -5,8 +5,8 @@ interface Props {
 
 const LongItem = ({question, answer}: Props) => {
     return (
-        <div className='flex flex-col text-[18px] md:text-[20px]'>
-        <span className=' font-gmarket-m pr-[20px] my-[3px] text-[18px] md:text-[20px]'>
+        <div className='flex flex-col text-[18px] md:text-[20px] mb-[10px] mt-[5px]'>
+        <span className=' font-gmarket-m pr-[20px] my-[3px] text-[18px] md:text-[20px] border-b-[1.5px] '>
             {question}
         </span>
             <span className='my-[5px] text-[18px] md:text-[20px]'>
