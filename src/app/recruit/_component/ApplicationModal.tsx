@@ -7,10 +7,11 @@ interface Props {
     setIndex: (idx: number) => void;
     modalRef: React.ForwardedRef<HTMLDivElement>;
     setOpen: (isOpen: boolean) => void;
+    list: any[];
 }
 
-const ApplicationModal = ({modalHandler, setOpen, index, setIndex, modalRef}: Props) => {
-    const list = [{
+const ApplicationModal = ({modalHandler, setOpen, index, setIndex, modalRef,list}: Props) => {
+    /*const list = [{
         name: '김상윤',
         depart: '소프트웨어',
         college: '창의ICT공과대학',
@@ -27,7 +28,7 @@ const ApplicationModal = ({modalHandler, setOpen, index, setIndex, modalRef}: Pr
         age: '2020',
         grade: '1학년 (1,2차 학기)'
     }]
-
+*/
 
     return (
         <div className='flex fixed bg-[#d9d9d930] w-full h-full justify-center z-50' ref={modalRef}
@@ -45,7 +46,7 @@ const ApplicationModal = ({modalHandler, setOpen, index, setIndex, modalRef}: Pr
                             className='mr-[10px] md:text-[30px] text-[20px] font-gmarket-m'>({index+1}) {list[index]['name']} -
                         </div>
 
-                        <div className='ml-[5px] md:text-[30px] text-[20px] font-gmarket-m'>[{list[index]['depart']}]
+                        <div className='ml-[5px] md:text-[30px] text-[20px] font-gmarket-m'>[{list[index]['department']}]
                         </div>
                     </div>
                     {list.length - 1 > index ?
