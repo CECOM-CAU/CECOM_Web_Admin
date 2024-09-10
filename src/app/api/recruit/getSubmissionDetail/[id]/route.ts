@@ -1,14 +1,23 @@
 import {NextRequest, NextResponse} from "next/server";
-import {API_RESULT} from "@/util/Interface";
+import {API_RESULT, LoginResult, LoginUser} from "@/util/Interface";
 import {corsHeader} from "@/util/CorsUtil";
-import {getRecruitSubmissionDetail} from "@/util/FirebaseUtil";
+import {checkLogin, getRecruitSubmissionDetail} from "@/util/FirebaseUtil";
 
 export const dynamic = "force-dynamic";
-export async function GET(_: NextRequest, {params}: {params: {id: string}}) {
+export async function POST(req: NextRequest, {params}: {params: {id: string}}) {
     const apiResult: API_RESULT = {
         RESULT_CODE: 200,
         RESULT_MSG: "Success",
         RESULT_DATA: undefined
+    }
+
+    const loginBody: LoginUser = JSON.parse(await req.text());
+    const loginResult: LoginResult = await checkLogin(loginBody);
+    if(loginResult !== LoginResult.LOGIN_OK) {
+        apiResult.RESULT_CODE = 100
+        apiResult.RESULT_MSG = "Unauthorized"
+        apiResult.RESULT_DATA = undefined;
+        return NextResponse.json(apiResult, { status: 200, headers: corsHeader });
     }
 
     const submissionDetail = await getRecruitSubmissionDetail(params.id);
