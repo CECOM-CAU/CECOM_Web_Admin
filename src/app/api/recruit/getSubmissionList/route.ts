@@ -17,7 +17,8 @@ export async function POST(req: NextRequest) {
         apiResult.RESULT_CODE = 100
         apiResult.RESULT_MSG = "Unauthorized"
         apiResult.RESULT_DATA = undefined;
-        return NextResponse.json(apiResult, { status: 200, headers: corsHeader });    }
+        return NextResponse.json(apiResult, { status: 200, headers: corsHeader });
+    }
 
     const submissionList = await getRecruitSubmissionList();
     if(submissionList === undefined || submissionList.data.length == 0){
