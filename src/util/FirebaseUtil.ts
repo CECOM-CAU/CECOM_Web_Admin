@@ -4,7 +4,7 @@ import {Firestore} from "firebase/firestore";
 import dotenv from "dotenv";
 import {
     LoginResult,
-    LoginUser,
+    LoginUser, RecruitQuestionList,
     RecruitSubmissionDetail,
     RecruitSubmissionItem,
     RecruitSubmissionList
@@ -45,6 +45,20 @@ export const checkLogin = async (requestData: LoginUser): Promise<LoginResult> =
 
     return LoginResult.LOGIN_FAIL_NO_ACCOUNT;
 }
+
+export const getRecruitQuestionList = async () => {
+    initFirebase();
+
+    const questionDoc = await getDoc(doc(firestoreDB!, "Question", "data"));
+    const questionList: RecruitQuestionList = {
+        count: questionDoc.get("count"),
+        list: questionDoc.get("list")
+    }
+
+    return questionList;
+}
+
+
 
 export const getRecruitSubmissionDetail = async (studentID: string) => {
     initFirebase();
