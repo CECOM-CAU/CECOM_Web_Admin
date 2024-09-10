@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import {API_RESULT, LoginResult, LoginUser} from "@/util/Interface";
 import {corsHeader} from "@/util/CorsUtil";
-import {tryLogin} from "@/util/FirebaseUtil";
+import {checkLogin} from "@/util/FirebaseUtil";
 
 export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest) {
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     };
 
     const loginBody: LoginUser = JSON.parse(await req.text());
-    const loginResult: LoginResult = await tryLogin(loginBody);
+    const loginResult: LoginResult = await checkLogin(loginBody);
     apiResult.RESULT_DATA = loginResult;
 
     if(loginResult === LoginResult.LOGIN_OK){

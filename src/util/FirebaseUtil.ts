@@ -22,7 +22,7 @@ const initFirebase = () => {
     }
 }
 
-export const tryLogin = async (requestData: LoginUser): Promise<LoginResult> => {
+export const checkLogin = async (requestData: LoginUser): Promise<LoginResult> => {
     initFirebase();
 
     const loginDoc = await getDoc(doc(firestoreDB!, "Login", "admin"));
