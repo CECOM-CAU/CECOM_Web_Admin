@@ -2,6 +2,7 @@
 import {useEffect, useRef, useState} from "react";
 import ApplicationModal from "@/app/recruit/_component/ApplicationModal";
 import axios from "axios";
+import {RecruitSubmissionItem, RecruitSubmissionList} from "@/util/Interface";
 
 const RecruitPage = () => {
     const header = ['번호', '이름', '학과', '학년',  '학번'];
@@ -26,7 +27,7 @@ const RecruitPage = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>(1);
     const modalRef = useRef<HTMLDivElement>(null);
-    const [list, setList] = useState<any[]>([]);
+    const [recruitData, setRecruitData] = useState<RecruitSubmissionItem[]>([]);
     const modalOpen = (index: number) => {
         setIsOpen(true);
         setCurrentIndex(index);
@@ -36,6 +37,14 @@ const RecruitPage = () => {
         if(sessionStorage.getItem('username') === null || sessionStorage.getItem('password') === null){
             window.location.replace('/login');
         }
+        axios.post('/api/recruit/getSubmissionList ', {username: sessionStorage.getItem('username'), password: sessionStorage.getItem('password')})
+            .then(async (r) => {
+               setRecruitData(r.data.RESULT_DATA.data)
+            })
+            .catch((err) => {
+
+            })
+
 
     }, []);
 
@@ -61,8 +70,8 @@ const RecruitPage = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {data.map((d, index) => (
-                            <tr className='' key={index} onClick={() => modalOpen(index)}>
+                        {recruitData.map((d, index) => (
+                            <tr className='' key={d.timestamp} onClick={() => modalOpen(index)}>
 
                                 <td className='text-start pl-[5px] pr-[20px] border-[1px]'>{index + 1}</td>
                                 <td className='text-start pl-[5px] pr-[20px] border-[1px] break-keep'>{d['name']}</td>
@@ -81,7 +90,7 @@ const RecruitPage = () => {
                 <ApplicationModal setOpen={setIsOpen} modalRef={modalRef} modalHandler={modalOutsideClick}
                                   index={currentIndex}
                                   setIndex={setCurrentIndex}
-                                  list={data}
+                                  list={recruitData}
                 ></ApplicationModal>) : (<></>)
             }
         </>
