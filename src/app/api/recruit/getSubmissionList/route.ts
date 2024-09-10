@@ -4,7 +4,7 @@ import {corsHeader} from "@/util/CorsUtil";
 import {getRecruitSubmissionList} from "@/util/FirebaseUtil";
 
 export const dynamic = "force-dynamic";
-export async function GET(_: NextRequest) {
+export async function POST(req: NextRequest) {
     const apiResult: API_RESULT = {
         RESULT_CODE: 200,
         RESULT_MSG: "Success",
