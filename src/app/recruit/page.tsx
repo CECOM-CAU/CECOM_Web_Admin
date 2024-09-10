@@ -17,10 +17,10 @@ const RecruitPage = () => {
         {
             name: '유용민',
             department: '소프트웨어',
-            age: '2005',
-            id: '20201234',
+            age: '2001',
+            id: '20191234',
             college: '소프트웨어대학',
-            grade: '1,2차 학기 ',
+            grade: '3,4차 학기 ',
             phone: '01000000000'
         }]
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -30,18 +30,15 @@ const RecruitPage = () => {
     const modalOpen = (index: number) => {
         setIsOpen(true);
         setCurrentIndex(index);
-    }
+    };
 
     useEffect(() => {
-        axios.get("https://cecom.dev/api/recruit/getSubmissionList")
-            .then(
-                (res) => {
-                    console.log(res.data);
-                }
-            ).catch((err) => {
-            console.log(err);
-        })
+        if(sessionStorage.getItem('username') === null || sessionStorage.getItem('password') === null){
+            window.location.replace('/login');
+        }
+
     }, []);
+
     const modalOutsideClick = (e: any) => {
         if (modalRef.current === e.target) {
             setIsOpen(false);
@@ -83,7 +80,9 @@ const RecruitPage = () => {
             {isOpen ? (
                 <ApplicationModal setOpen={setIsOpen} modalRef={modalRef} modalHandler={modalOutsideClick}
                                   index={currentIndex}
-                                  setIndex={setCurrentIndex}></ApplicationModal>) : (<></>)
+                                  setIndex={setCurrentIndex}
+                                  list={data}
+                ></ApplicationModal>) : (<></>)
             }
         </>
     );
