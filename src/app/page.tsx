@@ -1,7 +1,13 @@
-import Image from "next/image";
+'use client';
 import Link from "next/link";
+import {useEffect} from "react";
 
 const Home = () => {
+    useEffect(() => {
+        if (sessionStorage.getItem('username') === null || sessionStorage.getItem('password') === null) {
+            window.location.replace('/login');
+        }
+    }, []);
     const buttonStyle = "text-[30px] my-[10px]";
     return (
         <main className="flex flex-col w-full items-center justify-center z-0 pt-[50px]">
